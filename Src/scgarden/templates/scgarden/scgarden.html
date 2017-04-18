@@ -1,0 +1,51 @@
+{% load staticfiles %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'scgarden/styles.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'scgarden/mystyle.css' %}" />
+    <script type="text/javascript" src="{% static 'scgarden/js/jquery-1.8.3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scgarden/js/imagescript.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scgarden/js/jssor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scgarden/js/myscript.js' %}" ></script>
+    <div id="all">
+{% if pageModule_text_list %}
+    <ul id="jsddm">
+    {% for module in pageModule_text_list %}
+        
+        <li><a href="../{{ module.url_text}}">{{ module.pageModule_text }}</a>
+        	<ul>
+        		{% for singleModule in module.singlemodule_set.all %}
+        		<li><a href="../{{singleModule.singleModule_url_text}}">{{ singleModule.singleModule_text }}</a></li>
+        		{% endfor %}
+        	</ul>
+        </li>
+    {% endfor %}
+    </ul>
+    <div class="container">
+    <h1>School and Children's Garden Image Gallery </h1>
+</div>
+<div id="main" class="container">
+    <div class="main_image">
+        <img src="{{first_image.images.large.url}}" alt="{{first_image.image_text}}" width="600px" height="456px"/>
+        <div class="desc">
+            <div class="block">
+                <h3>{{first_image.image_text}}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="image_thumb">
+        <ul>
+            {% for eachImage in image_gallery_context %}
+            <li>
+                <a href="{{eachImage.images.large.url}}"><img src="{{eachImage.images.thumbnail.url}}" alt="{{eachImage.image_text}}" width="65px" height="50px"/></a>
+                <div class="block">
+                    <h2>{{eachImage.image_text}}</h2>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% else %}
+    <p>Loading Error.</p>
+{% endif %}
+</div>
